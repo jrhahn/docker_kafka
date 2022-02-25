@@ -1,5 +1,5 @@
 from kafka import KafkaProducer, KafkaAdminClient
-from kafka.admin import NewPartitions
+from kafka.admin import NewPartitions, NewTopic
 from kafka.errors import InvalidPartitionsError
 
 import shared
@@ -7,6 +7,16 @@ import shared
 
 def run():
     admin_client = KafkaAdminClient(bootstrap_servers=shared.bootstrap_servers)
+
+    try:
+        admin_client.create_topics(
+            [NewTopic(name='grid_search', num_partitions=1, replication_factor=1)])
+    except:
+        print("topic exists?")
+
+    # topic_list = []
+    # topic_list.append(NewTopic(name="example_topic", num_partitions=1, replication_factor=1))
+    # admin_client.create_topics(new_topics=topic_list, validate_only=False)
 
     topic_partitions = {
         shared.topic: NewPartitions(total_count=int(shared.num_partitions))
