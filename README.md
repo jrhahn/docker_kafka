@@ -4,6 +4,7 @@ I. Set up the broker
 1. cd docker
 2. ./build_image.sh
 3. ./run_image.sh  
+4. insider your docker container: ./setup_inside_docker.sh
 
 II. Run producer and client
 1. cd python
