@@ -18,7 +18,7 @@ def run(partition_id):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="List fish in aquarium.")
-    parser.add_argument("-p", "--partition_id", type=int)
+    parser.add_argument("-p", "--partition_id", type=int, default=0)
     args = parser.parse_args()
 
     run(partition_id=args.partition_id)

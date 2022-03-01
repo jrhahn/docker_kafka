@@ -35,7 +35,7 @@ def run():
             partition=int(ii % shared.num_partitions)
         )
 
-    print("")
+    print("Done.")
 
 
 if __name__ == '__main__':
