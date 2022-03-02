@@ -5,12 +5,17 @@ from kafka import KafkaConsumer, TopicPartition
 import shared
 
 
-def run(partition_id):
+def run(
+    do_manually_assign_to_partition: bool = False,
+    partition_id: int = 0
+) -> None:
     consumer = KafkaConsumer(
         bootstrap_servers=shared.bootstrap_servers,
         auto_offset_reset='latest'
     )
-    consumer.assign([TopicPartition(shared.topic, partition=partition_id)])
+
+    if do_manually_assign_to_partition:
+        consumer.assign([TopicPartition(shared.topic, partition=partition_id)])
 
     for msg in consumer:
         print(msg)

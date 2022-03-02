@@ -10,7 +10,7 @@ def run():
 
     try:
         admin_client.create_topics(
-            [NewTopic(name='grid_search', num_partitions=1, replication_factor=1)])
+            [NewTopic(name='grid_search', num_partitions=shared.num_partitions, replication_factor=1)])
     except TopicAlreadyExistsError:
         # topic already exists
         pass
@@ -34,6 +34,8 @@ def run():
             value=f'settings_{ii}'.encode(encoding="UTF8"),
             partition=int(ii % shared.num_partitions)
         )
+
+    producer.flush()
 
     print("Done.")
 
