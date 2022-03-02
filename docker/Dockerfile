@@ -16,6 +16,6 @@ RUN tar -xzf kafka_2.13-3.1.0.tgz
 
 WORKDIR /opt/kafka_2.13-3.1.0
 
-COPY ./setup_insider_docker.sh /opt/kafka_2.13-3.1.0/setup_insider_docker.sh
+COPY ./setup_inside_docker.sh /opt/kafka_2.13-3.1.0/setup_inside_docker.sh
 
 CMD bash #"sh /opt/kafka_2.13-3.1.0/setup_inside_docker.sh" # bash #bin/kafka-server-start.sh config/server.properties
