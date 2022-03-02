@@ -10,8 +10,9 @@ def run(
     partition_id: int = 0
 ) -> None:
     consumer = KafkaConsumer(
+        shared.topic,
         bootstrap_servers=shared.bootstrap_servers,
-        auto_offset_reset='latest'
+        group_id=shared.group_id
     )
 
     if do_manually_assign_to_partition:

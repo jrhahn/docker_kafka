@@ -9,8 +9,12 @@ def run():
     admin_client = KafkaAdminClient(bootstrap_servers=shared.bootstrap_servers)
 
     try:
-        admin_client.create_topics(
-            [NewTopic(name='grid_search', num_partitions=shared.num_partitions, replication_factor=1)])
+        admin_client.create_topics([
+            NewTopic(
+                name=shared.topic,
+                num_partitions=shared.num_partitions,
+                replication_factor=1)
+        ])
     except TopicAlreadyExistsError:
         # topic already exists
         pass
@@ -27,12 +31,12 @@ def run():
 
     producer = KafkaProducer(bootstrap_servers=shared.bootstrap_servers)
 
-    for ii in range(1000):
+    for ii in range(10000):
         print(f"Sending {ii}")
+
         producer.send(
-            topic='grid_search',
-            value=f'settings_{ii}'.encode(encoding="UTF8"),
-            partition=int(ii % shared.num_partitions)
+            topic=shared.topic,
+            value=f'settings_{ii}'.encode(encoding="UTF8")
         )
 
     producer.flush()
