@@ -19,16 +19,6 @@ def run():
         # topic already exists
         pass
 
-    topic_partitions = {
-        shared.topic: NewPartitions(total_count=int(shared.num_partitions))
-    }
-
-    try:
-        admin_client.create_partitions(topic_partitions)
-    except InvalidPartitionsError:
-        # partition probably exists
-        pass
-
     producer = KafkaProducer(bootstrap_servers=shared.bootstrap_servers)
 
     for ii in range(10000):
